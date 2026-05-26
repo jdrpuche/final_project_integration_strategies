@@ -2,8 +2,8 @@
 
 import logging
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 from config import Config
 
 logger = logging.getLogger(__name__)
@@ -45,8 +45,8 @@ Articles:
 Daily Music News Digest:""",
         )
 
-        # Create the chain
-        self.chain = LLMChain(llm=self.llm, prompt=self.summary_prompt)
+        # Create the chain using LCEL (Langchain Expression Language)
+        self.chain = self.summary_prompt | self.llm | StrOutputParser()
 
     def summarize(self, articles_text: str) -> str:
         """Summarize articles using OpenAI.
@@ -59,7 +59,7 @@ Daily Music News Digest:""",
         """
         try:
             logger.info("Generating summary with OpenAI...")
-            response = self.chain.run(articles=articles_text)
+            response = self.chain.invoke({"articles": articles_text})
             logger.info("✅ Summary generated successfully")
             return response
 

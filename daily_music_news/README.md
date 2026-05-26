@@ -85,7 +85,3 @@ daily_music_news/
 - **Gmail authentication fails**: Ensure you generated an App Password (not your regular Gmail password) at [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
 - **No news found**: Check that `NEWSAPI_KEY` is valid and has remaining requests
 - **OpenAI errors**: Verify your API key has credits and is not expired
-
-## License
-
-MIT

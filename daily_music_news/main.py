@@ -2,6 +2,7 @@
 
 import logging
 import time
+import sys
 from datetime import datetime
 from config import Config
 from news_fetcher import NewsAPIFetcher
@@ -91,6 +92,16 @@ def main():
     logger.info("=" * 60)
 
     try:
+        # Check for command-line arguments
+        if len(sys.argv) > 1:
+            if sys.argv[1] in ["--send-now", "-s", "send-now"]:
+                # Send digest immediately
+                logger.info("🚀 Send-Now Mode: Sending digest immediately...")
+                Config.validate()
+                send_daily_digest()
+                logger.info("✅ Done!")
+                return
+
         # Validate configuration
         Config.validate()
         logger.info("✅ Configuration validated")
@@ -120,7 +131,10 @@ def main():
 
     except KeyboardInterrupt:
         logger.info("\n⏹️ Shutting down...")
-        scheduler.stop()
+        try:
+            scheduler.stop()
+        except NameError:
+            pass
         logger.info("Application stopped")
 
     except ValueError as e:
