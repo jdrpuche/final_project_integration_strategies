@@ -1,0 +1,18 @@
+[project]
+name = "daily-music-news"
+version = "0.1.0"
+description = "Daily music news summary sent to email via cron scheduler"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "jdrpuche@gmail.com"}
+]
+
+dependencies = [
+    "apscheduler>=3.10.4",
+    "langchain>=0.1.0",
+    "langchain-openai>=0.0.2",
+    "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
+]
